@@ -197,7 +197,7 @@ class ATOWriter:
           gentext.append(amsId)
           gentext.append(row['TextIndicator'])
           gentext.append(row['Info'])
-          if row['Info'] <> "":
+          if row['Info'] != "":
             cursor.insertRow(gentext)
         del cursor
         

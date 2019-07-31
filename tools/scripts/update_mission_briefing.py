@@ -9,9 +9,9 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.​
 
-import arcpy, urllib, json, datetime, time, logging
-import utils.common
-import config.settings
+import arcpy, urllib.request, urllib.parse, urllib.error, json, datetime, time, logging
+from . import utils.common
+from . import config.settings
 
 ######## user variables ###########
 db = arcpy.GetParameterAsText(0)
@@ -62,13 +62,13 @@ try:
 
     #parameters for 'Air Assault Impact of Cloud Ceiling on target acquisition in fixed wing aircraft'
 
-    parameters = urllib.urlencode({'geometry': {'x': row[0][0], 'y': row[0][1], "spatialReference": {"wkid": 4326}},'geometryType':'esriGeometryPoint','renderingRule':'{"rasterFunction" :"Air Assault Impact of Cloud Ceiling on target acquisition in fixed wing aircraft" }','time': previous3HourInSecondsFromEpoch,'returnGeometry':'false','returnCatalogItems':'false', 'f': 'json'})
+    parameters = urllib.parse.urlencode({'geometry': {'x': row[0][0], 'y': row[0][1], "spatialReference": {"wkid": 4326}},'geometryType':'esriGeometryPoint','renderingRule':'{"rasterFunction" :"Air Assault Impact of Cloud Ceiling on target acquisition in fixed wing aircraft" }','time': previous3HourInSecondsFromEpoch,'returnGeometry':'false','returnCatalogItems':'false', 'f': 'json'})
 
     request = weatherURL + '/identify?' + parameters
 
     try:
       #make URL call to service
-      response = json.loads(urllib.urlopen(request).read())
+      response = json.loads(urllib.request.urlopen(request).read())
 
       #process response    
       
@@ -88,7 +88,7 @@ try:
         
     #parameters for 'Impact of temperature on Air Defence'
 
-    parameters = urllib.urlencode({'geometry': {'x': row[0][0], 'y': row[0][1], "spatialReference": {"wkid": 4326}},'geometryType':'esriGeometryPoint','renderingRule':'{"rasterFunction" :"Air Defense impact of Temperature." }','time': previous3HourInSecondsFromEpoch,'returnGeometry':'false','returnCatalogItems':'false', 'f': 'json'})
+    parameters = urllib.parse.urlencode({'geometry': {'x': row[0][0], 'y': row[0][1], "spatialReference": {"wkid": 4326}},'geometryType':'esriGeometryPoint','renderingRule':'{"rasterFunction" :"Air Defense impact of Temperature." }','time': previous3HourInSecondsFromEpoch,'returnGeometry':'false','returnCatalogItems':'false', 'f': 'json'})
 
     #add parameters to weather service URL
 
@@ -96,7 +96,7 @@ try:
 
     try:
       #make URL call to service
-      response2 = json.loads(urllib.urlopen(request2).read())
+      response2 = json.loads(urllib.request.urlopen(request2).read())
 
       #process response    
       if response2['value'] == "114, 137, 68": #Pixel value colour for Favorable
@@ -124,7 +124,7 @@ try:
     addCursor.insertRow(addRow)
   del addCursor
 
-except Exception, e:
+except Exception as e:
   utils.common.OutputMessage(logging.DEBUG, e)
   
 utils.common.OutputMessage(logging.DEBUG, '-' * CONST_HEADING_PAD)

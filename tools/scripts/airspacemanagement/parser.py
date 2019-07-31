@@ -614,7 +614,7 @@ def parseTASKUNIT(record):
     for i in items:
         TASKUNITvalues.append(i)
     
-    TASKUNIT = dict(zip(TASKUNITkeys,TASKUNITvalues))    
+    TASKUNIT = dict(list(zip(TASKUNITkeys,TASKUNITvalues)))    
     
     #Remove leading characters from UnitID
     TASKUNIT['UnitID'] = TASKUNIT['UnitID'].split(":")[1]
@@ -639,7 +639,7 @@ def parseAMSNDAT(record):
     for i in items:
         AMSNDATvalues.append(i)
     
-    AMSNDAT = dict(zip(AMSNDATkeys,AMSNDATvalues)) 
+    AMSNDAT = dict(list(zip(AMSNDATkeys,AMSNDATvalues))) 
 
     if isNotSpacer(AMSNDAT['departureLocation']):
         AMSNDAT['departureLocation'] = AMSNDAT['departureLocation'].split(":")[1]
@@ -667,7 +667,7 @@ def parseMSNACFT(record):
     for i in items:
         MSNACFTvalues.append(i)
     
-    MSNACFT = dict(zip(MSNACFTkeys,MSNACFTvalues))
+    MSNACFT = dict(list(zip(MSNACFTkeys,MSNACFTvalues)))
     
     #Remove leading characters from aircraft type
     MSNACFT['aircraftType'] = MSNACFT['aircraftType'].split(":")[1]
@@ -695,7 +695,7 @@ def parseROUTE(record):
             
     ROUTEvalues.append(ROUTEvalue[:-1])
 
-    ROUTE = dict(zip(ROUTEkeys,ROUTEvalues)) 
+    ROUTE = dict(list(zip(ROUTEkeys,ROUTEvalues))) 
     
     return ROUTE  
 
@@ -777,7 +777,7 @@ def parseAMSNLOC(record, year):
     for i in items:
         AMSNLOCvalues.append(i)
     
-    AMSNLOC = dict(zip(AMSNLOCkeys,AMSNLOCvalues))
+    AMSNLOC = dict(list(zip(AMSNLOCkeys,AMSNLOCvalues)))
     
     if isNotSpacer(AMSNLOC['startTime']):
         startDate = parseDate(AMSNLOC['startTime'] + str(year))
@@ -814,7 +814,7 @@ def parseGENTEXT(record):
     for i in items:
         GENTEXTvalues.append(i)
     
-    GENTEXT = dict(zip(GENTEXTkeys,GENTEXTvalues))
+    GENTEXT = dict(list(zip(GENTEXTkeys,GENTEXTvalues)))
     
     GENTEXT['Info'] = GENTEXT['Info'].replace('\n','')
     GENTEXT['Info'] = GENTEXT['Info'].replace('-','')

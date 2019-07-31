@@ -11,8 +11,8 @@
 
 import time, os, datetime, sys, logging, logging.handlers, shutil
 import arcpy
-import utils.common
-import config.settings
+from . import utils.common
+from . import config.settings
 
 ########################## user defined functions ##############################
 
@@ -37,17 +37,17 @@ def replicateDatabase(dbConnection, targetGDB):
 
         try:
             datasetList = [arcpy.Describe(a).name for a in arcpy.ListDatasets()]
-        except Exception, e:
+        except Exception as e:
             datasetList = []
             utils.common.OutputMessage(logging.DEBUG, e)
         try:
             featureClasses = [arcpy.Describe(a).name for a in arcpy.ListFeatureClasses()]
-        except Exception, e:
+        except Exception as e:
             featureClasses = []
             utils.common.OutputMessage(logging.DEBUG, e)
         try:
             tables = [arcpy.Describe(a).name for a in arcpy.ListTables()]
-        except Exception, e:
+        except Exception as e:
             tables = []
             utils.common.OutputMessage(logging.DEBUG, e)
 
@@ -108,7 +108,7 @@ if __name__ == "__main__":
          replicateDatabase(databaseConnection, targetGDB)
          repairMXDPaths(targetGDB,targetmaps)
          ################################################################################
-    except Exception, e:
+    except Exception as e:
          utils.common.OutputMessage(logging.DEBUG, e)
                     
 
