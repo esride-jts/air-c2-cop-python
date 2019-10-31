@@ -19,10 +19,10 @@ import inspect
 import datetime
 import json
 
-from . import config.settings
-from . import utils.common
-from . import airspacemanagement.reader
-from . import airspacemanagement.writer
+import config.settings
+import utils.common
+import airspacemanagement.reader
+import airspacemanagement.writer
 
 PARAMINDEX_SOURCE_FILE  = 0
 PARAMINDEX_TARGET_WS    = 1
